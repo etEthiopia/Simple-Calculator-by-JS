@@ -1,0 +1,206 @@
+<html>
+<head>
+		<meta name="keywords" content="HTML, CSS, JavaScript">
+		<meta name="description" content="Scientific Calulator">
+		<meta name="author" content="Dagmawi Negussu">
+	<link rel="stylesheet" type="text/css" href="../css/calc.css">
+	<script>
+		var power=false;
+var clear=false;
+var ram=false;
+function vlll(val){
+		if(val=="b"){
+			//window.alert(val);
+			b();
+
+		}
+		else if(power==true){
+			exp(val);
+		}
+		else if(clear==true){
+			switch(val){
+				case "+":
+				document.getElementById("inp").value+=val;
+				break;
+				case "-":
+				document.getElementById("inp").value+=val;
+				break;
+				case "*":
+				document.getElementById("inp").value+=val;
+				break;
+				case "/":
+				document.getElementById("inp").value+=val;
+				break;
+				default:
+				document.getElementById("inp").value=val;
+				break;
+			}
+			clear=false;	
+	}
+		else{
+		document.getElementById("inp").value+=val;
+	}
+}
+function clr(val){
+
+	document.getElementById("inp").value=val;
+	
+}
+function equals(){
+	try{
+		clr(eval(document.getElementById("inp").value));
+		clear=true;
+	}
+	catch(equals){
+		clr("Error caught")
+	}
+}
+function b(){
+	//window.alert("I am here");
+	var vall = document.getElementById("inp").value;
+	//window.alert(vall);
+	var string = vall.toString().slice(0,vall.toString().length-1); 
+	document.getElementById("inp").value=string;
+}
+function deg(val){
+	var numb=document.getElementById("inp").value;
+	var pip=3.1415926535897932384626433832795/180;
+		var pii=numb*pip;
+		var sol;
+	if(val=="sin"){
+		sol=Math.sin(pii);	
+	}
+	else if(val=="cos"){
+		sol=Math.cos(pii);
+	}
+	else if(val=="tan"){
+		sol=Math.tan(pii);
+	}
+	try{
+	document.getElementById("inp").value=sol;
+	clear=true;
+	}
+	catch(val){
+		deg("Invalid syntax");
+	}
+}
+var x;
+function mat(val){
+	var sl;
+	if(val=="sqr"){
+		sl=Math.pow(document.getElementById("inp").value,2);
+		clear=true;	
+		
+	}
+	else if(val=="ln"){
+		sl=Math.log(document.getElementById("inp").value);	
+		clear=true;
+	}
+	else if(val=="%"){
+		var cur=eval(document.getElementById("inp").value);
+		sl=cur/100;
+		clear=true;
+	}
+	else if(val=="x^"){
+		x=document.getElementById("inp").value;
+		power=true;
+		clr("");
+	}
+	else if(val=="sqrt"){
+		sl=document.getElementById("inp").value=Math.sqrt(document.getElementById("inp").value);
+		clear=true;	
+	}
+	else if(val=="|X|"){
+		try{
+		if(eval(document.getElementById("inp").value)<0){
+			sl=-1*eval(document.getElementById("inp")).value;
+		}
+		else{
+			sl=1*eval(document.getElementById("inp")).value;
+		}
+		clear=true;
+	}
+	catch(mat){
+		mat("Error")
+	}
+	}
+	if(power==false){
+	document.getElementById("inp").value=sl;
+	}
+}
+function exp(val){
+	power=false;
+	var s2=Math.pow(x, val);
+	document.getElementById("inp").value=s2;
+	clear=true;
+}
+	</script>
+	<title>
+		Calculator
+	</title>
+</head>
+	<body>
+		<div class="box">
+			<div class="display">
+				
+				<div id="display">
+					<input type="text" readonly id="inp">
+				</div>
+			</div>
+			<div id="basic">
+			<table id="numbs">
+				<tr><td><input type="button" class="op" value="C" onclick="clr('')"></td>
+					<td><input type="button" class="op" value="/" onclick="vlll(value)"></td>
+					<td><input type="button" class="op" value="X" onclick="vlll('*')"></td>
+					<td><input type="button" class="op" value="<X" onclick="vlll('b')"></td>
+				</tr>
+				<tr><td><input type="button" class="num" value="7" onclick="vlll(value)"></td>
+					<td><input type="button" class="num" value="8" onclick="vlll(value)"></td>
+					<td><input type="button" class="num" value="9" onclick="vlll(value)"></td>
+					<td><input type="button" class="op" value="-" onclick="vlll(value)"> </td>
+				</tr>
+				<tr><td><input type="button" class="num" value="4" onclick="vlll(value)"></td>
+					<td><input type="button" class="num" value="5" onclick="vlll(value)"></td>
+					<td><input type="button" class="num" value="6" onclick="vlll(value)"></td>
+					<td><input type="button" class="op" value="+" onclick="vlll(value)"></td>
+				</tr>
+				<tr><td><input type="button" class="num" value="1" onclick="vlll(value)"></td>
+					<td><input type="button" class="num" value="2" onclick="vlll(value)"></td>
+					<td><input type="button" class="num" value="3" onclick="vlll(value)"></td>
+					<td><input type="button" class="op" value="=" onclick="equals()"></td>
+				</tr>
+				<tr><td><input type="button" class="num" value="."  onclick="vlll(value)"></td>
+					<td><input type="button" class="num" value="0" onclick="vlll(value)"></td>
+					<td><input type="button" class="op" value="(" onclick="vlll(value)"></td>
+					<td><input type="button" class="op" value=")"  onclick="vlll(value)"></td>
+				</tr>
+			</table>
+			
+			
+				<table id="scitable">
+					<tr>
+						<td><input type="button" class="scibut" value="%" onclick="mat(value)"></td>
+						<td><input type="button" class="scibut" value="sqr" onclick="mat(value)"></td>
+					</tr>
+						<tr>
+						<td><input type="button" class="scibut" value="ln" onclick="mat(value)"></td>
+						<td><input type="button" class="scibut" value="tan" onclick="deg(value)"></td>
+					</tr>
+						<tr>
+						<td><input type="button" class="scibut" value="x^" onclick="mat(value)"></td>
+						<td><input type="button" class="scibut" value="cos" onclick="deg(value)"></td>
+					</tr>
+						<tr>
+						<td><input type="button" class="scibut" value="sqrt" onclick="mat(value)"></td>
+						<td><input type="button" class="scibut" value="sin" onclick="deg(value)"></td>
+					</tr>
+						<tr>
+						<td><input type="button" class="scibut" value="|X|" onclick="mat(value)"></td>
+						<td><input type="button" class="scibut" value="π" onclick="vlll(Math.PI)"></td>
+					</tr>
+				</table>
+			
+		</div>
+	</body>
+</head>
+</html>
